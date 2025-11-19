@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -13,12 +14,13 @@ export class WebsiteEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'publisher_id' })
+  @Column({ name: 'publisher_id', nullable: false })
   publisherId: number;
 
   @ManyToOne(() => PublisherEntity, (publisher) => publisher.websites, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'publisher_id' })
   publisher: PublisherEntity;
 
   @Column()

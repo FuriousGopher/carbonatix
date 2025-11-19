@@ -144,13 +144,18 @@ export class WebsiteService {
 
       const saved = await this.websiteRepository.save(entity);
 
+      const hydrated = await this.websiteRepository.findOne({
+        where: { id: saved.id },
+        relations: ['publisher'],
+      });
+
       const affectedPublisherIds = [
         saved.publisherId,
         previousPublisherId,
       ].filter((id): id is number => typeof id === 'number');
 
       await this.invalidateCache(saved.id, affectedPublisherIds);
-      return this.mapOne(saved);
+      return this.mapOne(hydrated ?? saved);
     } catch (error) {
       this.logger.error(
         `Failed to upsert website name=${dto.name}`,

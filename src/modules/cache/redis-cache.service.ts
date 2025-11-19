@@ -26,10 +26,7 @@ export class RedisCacheService {
       this.configService.get<string>('REDIS_PORT') ?? '6379',
       10,
     );
-    const db = parseInt(
-      this.configService.get<string>('REDIS_DB') ?? '0',
-      10,
-    );
+    const db = parseInt(this.configService.get<string>('REDIS_DB') ?? '0', 10);
 
     this.redisHealthClient = new Redis({
       host,
@@ -55,15 +52,6 @@ export class RedisCacheService {
 
   async del(key: string): Promise<void> {
     await this.cacheManager.del(this.buildKey(key));
-  }
-
-  async reset(): Promise<void> {
-    if (
-      'clear' in this.cacheManager &&
-      typeof this.cacheManager.clear === 'function'
-    ) {
-      await this.cacheManager.clear();
-    }
   }
 
   async wrap<T>(
