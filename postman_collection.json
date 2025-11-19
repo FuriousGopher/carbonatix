@@ -1,0 +1,233 @@
+{
+  "info": {
+    "name": "Carbonatix BMS API",
+    "_postman_id": "c5b37cff-0000-4a25-a000-collection",
+    "description": "Collection covering publisher/website CRUD and health checks.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Publishers",
+      "item": [
+        {
+          "name": "List Publishers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/publisher?includeWebsites=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "publisher"
+              ],
+              "query": [
+                {
+                  "key": "includeWebsites",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Publisher By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/publisher/{{publisherId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "publisher",
+                "{{publisherId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upsert Publisher",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Acme Media Group\",\n  \"email\": \"contact@acme.com\",\n  \"contactName\": \"Jane Doe\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/publisher",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "publisher"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Publisher",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/publisher/{{publisherId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "publisher",
+                "{{publisherId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Websites",
+      "item": [
+        {
+          "name": "List Websites",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/website?includePublisher=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "website"
+              ],
+              "query": [
+                {
+                  "key": "includePublisher",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Website By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/website/{{websiteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "website",
+                "{{websiteId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Websites By Publisher",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/website/publisher/{{publisherId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "website",
+                "publisher",
+                "{{publisherId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upsert Website",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"carbonatix.com\",\n  \"publisherId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/website",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "website"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Website",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/website/{{websiteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "website",
+                "{{websiteId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "publisherId",
+      "value": "1"
+    },
+    {
+      "key": "websiteId",
+      "value": "1"
+    }
+  ]
+}
